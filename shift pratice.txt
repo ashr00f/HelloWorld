@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+  unsigned char i,num,r,flag,s;
+    while(1)
+    {r=1;s=0;flag=0;
+         scanf("%d",&i);
+    while(flag<=7)
+    {
+        num=i&r;
+        if(num)
+            {
+            s=s+1;
+        }
+        r=r<<1;
+        flag++;
+    }
+
+        printf("sum =%d\n",s);
+
+    }
+return 0;
+
+}

@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    unsigned int n1,n2,x ;
+    while(1)
+    {
+
+        printf("\n Enter two limit no. \n");
+
+
+        scanf("%d",&n1 );
+         scanf("%d",&n2);
+if (n1>n2)
+{
+   x=n1;
+   n1=n2;
+   n2=x ;
+
+}
+        for (int i=n2-1 ;i>n1 ; i=i-1)
+        {
+
+            printf(" %d ",i);
+
+        }
+
+    }
+
+
+return 0;
+}
+
+

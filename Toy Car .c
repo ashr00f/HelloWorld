@@ -1,0 +1,35 @@
+void F_FORWARD (void)
+{
+	 MOTOR_CW(M1);
+	 MOTOR_CW(M2);
+	 MOTOR_CW(M3);
+	 MOTOR_CW(M4);
+}
+void F_BACKWARD (void)
+{
+	MOTOR_CCW(M1);
+	MOTOR_CCW(M2);
+	MOTOR_CCW(M3);
+	MOTOR_CCW(M4);
+}
+void F_TURNRIGHT (void)
+{
+MOTOR_CW(M1);
+MOTOR_CW(M2);
+MOTOR_CCW(M3);
+MOTOR_CCW(M4);
+}
+void F_TURNLEFT (void)
+{
+	MOTOR_CCW(M1);
+	MOTOR_CCW(M2);
+	MOTOR_CW(M3);
+	MOTOR_CW(M4);
+}
+void F_STOP (void)
+{
+	MOTOR_Stop(M1);
+	MOTOR_Stop(M2);
+	MOTOR_Stop(M3);
+	MOTOR_Stop(M4);
+}

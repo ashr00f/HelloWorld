@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    unsigned int n, e=0;
+    while(1)
+    {
+      int c=0;
+        printf(" Enter num \n");
+        scanf("%d",&n );
+
+
+     while (n>0)
+{   e=n%10;
+  c=c+e;
+  n=n/10;
+    }
+printf(" sum %d\n",c);
+    }
+return 0;
+}
+
+

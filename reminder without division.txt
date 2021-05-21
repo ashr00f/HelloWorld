@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+  unsigned int i,num,r,flag;
+    while(1)
+    {
+        scanf("%d %d",&i,&num);
+        r=i;
+        while( num<=i)
+         {
+             r=i-num;
+                i=r;
+         }
+         printf("r=%d\n",r);
+    }
+return 0;
+
+}
+
+
+

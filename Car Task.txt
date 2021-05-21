@@ -1,0 +1,78 @@
+///// car Task    \\\\\\
+
+
+ #define  FORWARD  PIND2 
+  #define BACKWARD  PIND3 
+  #define  TURNRIGHT  PIND4 
+#define  TURNLEFT  PIND5 
+void F_FORWARD (void)
+{
+	 MOTOR_CW(M1);
+	 MOTOR_CW(M2);
+	 MOTOR_CW(M3);
+	 MOTOR_CW(M4);
+}
+void F_BACKWARD (void)
+{
+	MOTOR_CCW(M1);
+	MOTOR_CCW(M2);
+	MOTOR_CCW(M3);
+	MOTOR_CCW(M4);
+}
+void F_TURNRIGHT (void)
+{
+MOTOR_CW(M1);
+MOTOR_CW(M2);
+MOTOR_CCW(M3);
+MOTOR_CCW(M4);
+}
+void F_TURNLEFT (void)
+{
+	MOTOR_CCW(M1);
+	MOTOR_CCW(M2);
+	MOTOR_CW(M3);
+	MOTOR_CW(M4);
+}
+void F_STOP (void)
+{
+	MOTOR_Stop(M1);
+	MOTOR_Stop(M2);
+	MOTOR_Stop(M3);
+	MOTOR_Stop(M4);
+}
+
+
+
+
+int main(void)
+{
+	DIO_Init();
+	unsigned char i,f=0,f1=0,f2=0;
+	int j;
+	
+ while (1)
+ {
+		while (!DIO_ReadPin(FORWARD))
+		{
+			F_FORWARD();
+		}
+ 
+	while (!DIO_ReadPin(BACKWARD))
+	{
+		F_BACKWARD();
+	}
+ 
+ while (!DIO_ReadPin(TURNRIGHT))
+	 {
+		 F_TURNRIGHT();
+	 }
+ 
+ 
+	while (!DIO_ReadPin(TURNLEFT))
+	{
+		F_TURNLEFT();
+	}
+	
+  F_STOP ();
+}
+}

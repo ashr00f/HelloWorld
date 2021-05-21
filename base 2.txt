@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+unsigned int i,num,r,flag,s;
+    while(1)
+    {
+         r=1;flag=0;
+        scanf("%d",&num);
+       for(r=1;r<=num;r=r*2)
+        {
+          if(num==r)
+            flag=1;
+        }
+        if(flag==1)
+          printf(" base of 2\n");
+          else
+        printf("not base of 2\n");
+        }
+return 0;
+
+}

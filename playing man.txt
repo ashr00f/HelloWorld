@@ -1,0 +1,53 @@
+Create_Character(arr_man,0);
+
+ while (1)
+ {
+	 
+	 
+	 LCD_SetCursor1(updown,r_l);
+	 LCD_WriteChar(0);
+	 if(!DIO_ReadPin(PIND2))
+	 {
+		 r_l++;
+		 if(16==r_l)
+		 {
+			 r_l=0;
+		 }
+		 while(!DIO_ReadPin(PIND2));
+		 LCD_Clear();
+	 }
+	 if(!DIO_ReadPin(PIND3))
+	 {
+		 r_l--;
+		 if(255==r_l)
+		 {
+			 r_l=15;
+		 }
+		 while(!DIO_ReadPin(PIND3));
+		 LCD_Clear();
+		 
+	 }
+	 if(!DIO_ReadPin(PIND4))
+	 {
+		 updown++;
+		 if(2==updown)
+		 {
+			 updown=0;
+		 }
+		 while(!DIO_ReadPin(PIND4));
+		 LCD_Clear();
+	 }
+	 if(!DIO_ReadPin(PIND5))
+	 {
+		 updown--;
+		 if(255==updown)
+		 {
+			 updown=1;
+		 }
+		 while(!DIO_ReadPin(PIND5));
+		 LCD_Clear();
+		 
+	 }
+	 
+	 //animation1("WE WON !!!");
+	}

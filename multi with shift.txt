@@ -1,0 +1,21 @@
+#include <stdlib.h>
+
+int main()
+{
+    while(1)
+    {
+
+
+char x,y;
+fflush(stdin);
+scanf("%d",&x);
+
+y=(x<<3)-x;
+printf("%d",y);
+}
+
+
+return 0;
+}
+
+

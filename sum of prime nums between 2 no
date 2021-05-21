@@ -1,0 +1,36 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int IsPrime(int x)
+{
+    int i;
+    for (i=2;i<x;i++)
+    {
+        if(x%i==0)
+        {
+            return 0;
+        }
+    }
+         return 1;
+
+}
+int main()
+{
+    unsigned int num=0,s,i,f,r,z;
+    while(1)
+    { printf("enter 1st num ");
+    scanf("%d",&s);
+    printf("enter 2nd num ");
+       scanf("%d",&r);
+      for(i=s;i<=r;i++)
+       {
+         z=IsPrime(i);
+        if(z)
+            printf("%d ",i);
+       }
+
+    }
+
+    return 0;
+}

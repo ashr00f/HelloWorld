@@ -1,0 +1,379 @@
+char s_g (char n)
+{
+	if (n>=0&&n<=9)
+	{
+		static char arr[10]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+		return arr[n];
+	}
+	else
+	{
+		return 0x3f;
+	}
+}
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# include "MemoryMap.h"
+# define F_CPU 8000000
+# include <util/delay.h>
+#define delay 200
+void segm_disp (char n)
+{
+	static char arr[10]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+	if (n>=0&&n<=9)
+	{
+		
+		//PORTC=0x3f;
+		PORTA=arr[n];
+		
+	}
+	else if(n>9&&n<100)
+	{
+		PORTA=arr[n%10];
+		PORTC=arr[n/10];
+	}
+	else
+	{PORTA=0x3f;
+		PORTC=0x3f;
+	}
+}
+
+int main(void)
+{
+	char i,f=0,f1=0,f2=0;
+    DDRB=0XFF;
+	
+	DDRD=0X00;
+	DDRC=0xFF;
+	PORTC=0xc0;
+	DDRA=0xff;
+	PORTD=0xFF;
+	PORTB=0x00;
+    while (1) 
+ { 
+	if(!READ_BIT(PIND,2))
+	{
+		while(!READ_BIT(PIND,2));
+		for(i=0;i<10;i++)
+		{
+			segm_disp(i);
+			_delay_ms(delay);
+		}
+
+	}
+ }
+	
+}
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//push to increment
+# include "MemoryMap.h"
+# define F_CPU 8000000
+# include <util/delay.h>
+#define delay 200
+void segm_disp (char n)
+{
+	static char arr[10]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+	if (n>=0&&n<=9)
+	{
+		
+		//PORTC=0x3f;
+		PORTA=arr[n]<<1;
+		
+	}
+	else if(n>9&&n<100)
+	{
+		PORTA=arr[n%10]<<1;
+		//PORTC=arr[n/10];
+	}
+	else
+	{PORTA=0x3f<<1;
+		//PORTC=0x3f;
+	}
+}
+
+int main(void)
+{
+	char i,f=0,f1=0,f2=0;
+    DDRB=0XFF;
+	
+	DDRD=0X00;
+	DDRC=0xFF;
+	PORTC=0xc0;
+	DDRA=0xff;
+	PORTD=0xFF;
+	PORTB=0x00;
+    while (1) 
+ { 
+	if(!READ_BIT(PIND,2))
+	{
+		while(!READ_BIT(PIND,2));
+			segm_disp(++f);
+			_delay_ms(delay);
+			if(10==f)
+			{
+				f=0;
+			}
+	}
+	else if(!READ_BIT(PIND,3))
+	{
+		while(!READ_BIT(PIND,3));
+		segm_disp(--f);
+		_delay_ms(delay);
+		if(0==f)
+		{
+			f=10;
+		}
+	}
+ }
+	
+}
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+void segm_disp (char n)
+{
+	static char arr[10]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+	if (n>=0&&n<=9)
+	{
+		
+		//PORTC=0x3f;
+		PORTA=arr[n]<<1;
+		
+	}
+	else if(n>9&&n<100)
+	{
+		PORTA=arr[n%10]<<1;
+		//PORTC=arr[n/10];
+	}
+	else
+	{PORTA=0x3f<<1;
+		//PORTC=0x3f;
+	}
+}
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ void segm_disp_mx (char n)
+{
+	static char arr[10]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+	if (n>=0&&n<=9)
+	{
+		SET_BIT(PORTC,6);
+		CLR_BIT(PORTC,7);
+		PORTA=arr[n]<<1;
+		_delay_ms(1);
+		SET_BIT(PORTC,7);
+		CLR_BIT(PORTC,6);
+		PORTA=0x3f<<1;
+		_delay_ms(1);
+		
+	}
+	else if(n>9&&n<100)
+	{
+		SET_BIT(PORTC,6);
+		CLR_BIT(PORTC,7);
+		PORTA=arr[n%10]<<1;
+		_delay_ms(1);
+		SET_BIT(PORTC,7);
+		CLR_BIT(PORTC,6);
+		PORTA=arr[n/10]<<1;
+		_delay_ms(1);
+	}
+	else
+	{
+		SET_BIT(PORTC,6);
+		CLR_BIT(PORTC,7);
+		PORTA=0x3f<<1;
+		_delay_ms(1);
+		SET_BIT(PORTC,7);
+		CLR_BIT(PORTC,6);
+		PORTA=0x3f<<1;
+		_delay_ms(1);
+	}
+}
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+// increment & decrement with 2 buttons
+int main(void)
+{
+	char i,f=0,f1=0,f2=0;
+	int j;
+    DDRB=0XFF;
+	
+	DDRD=0X00;
+	DDRC=0xFF;
+	PORTC=0xc0;
+	DDRA=0xff;
+	PORTD=0xFF;
+	PORTB=0x00;
+    while (1) 
+ { 
+	  if(!READ_BIT(PIND,2))
+	{
+		  while(1)
+	  {
+		    while(!READ_BIT(PIND,2));
+		    f++;
+	   for(j=0;j<500;j++)
+		 {
+			 if(!READ_BIT(PIND,3))
+			 {
+				 break;
+				 f1=0;
+			 }
+		   segm_disp_mx(f);
+		   
+		   }
+		   if (100==f)
+		   {
+			   f=0;
+		   }
+		   if(!READ_BIT(PIND,3))
+		   {
+			   break;
+		   }
+	  }
+    }
+	  
+   if(!READ_BIT(PIND,3))
+    {
+		while(1)
+	  {
+	    while(!READ_BIT(PIND,3));
+		 if (0==f)
+		 {
+			 f=100;
+		 }
+		 
+	    f--;
+	    for(j=0;j<500;j++)
+	    {
+			if(!READ_BIT(PIND,2))
+			{
+				break;
+				f1=1;
+			}
+		    segm_disp_mx(f);
+	    }
+		if(!READ_BIT(PIND,2))
+		{
+			break;
+		}
+	 }
+  }
+	
+}
+
+}
+ for(i=0;i<100;i++)
+	   { 
+		   for(j=0;j<500;j++)
+		   {
+		   segm_disp_mx(i);
+		   }
+	   }
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# include "MemoryMap.h"
+# define F_CPU 8000000
+# include <util/delay.h>
+#define delay 200
+void segm_disp_mx (char n)
+{
+	static char arr[10]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+	
+	 if(n>=0&&n<100)
+	{
+		SET_BIT(PORTC,6);
+		CLR_BIT(PORTC,7);
+		PORTA=arr[n%10]<<1;
+		_delay_ms(1);
+		SET_BIT(PORTC,7);
+		CLR_BIT(PORTC,6);
+		PORTA=arr[n/10]<<1;
+		_delay_ms(1);
+	}
+	else
+	{
+		SET_BIT(PORTC,6);
+		CLR_BIT(PORTC,7);
+		PORTA=0x3f<<1;
+		_delay_ms(1);
+		SET_BIT(PORTC,7);
+		CLR_BIT(PORTC,6);
+		PORTA=0x3f<<1;
+		_delay_ms(1);
+	}
+}
+
+int main(void)
+{
+	char i,f=0,f1=0,f2=0;
+	int j;
+    DDRB=0XFF;
+	
+	DDRD=0X00;
+	DDRC=0xFF;
+	PORTC=0xc0;
+	DDRA=0xff;
+	PORTD=0xFF;
+	PORTB=0x00;
+    while (1) 
+ { 
+	 if(!READ_BIT(PIND,2))
+	 {
+		  while(!READ_BIT(PIND,2));
+		 f1=f1^1;
+	 }
+	 
+	 
+	  if(1==f1)
+	{
+		  while(1)
+	  {
+		    while(!READ_BIT(PIND,2));
+		    f++;
+	   for(j=0;j<500;j++)
+		 {
+			 if(!READ_BIT(PIND,2))
+			 {
+				 break;
+				
+			 }
+		   segm_disp_mx(f);
+		   
+		   }
+		   if (100==f)
+		   {
+			   f=0;
+		   }
+		   if(!READ_BIT(PIND,2))
+		   {
+			   break;
+		   }
+	  }
+    }
+	  
+   if(0==f1)
+    {
+		while(1)
+	  {
+	    while(!READ_BIT(PIND,2));
+		 if (0==f)
+		 {
+			 f=100;
+		 }
+		 
+	    f--;
+	    for(j=0;j<500;j++)
+	    {
+			if(!READ_BIT(PIND,2))
+			{
+				break;
+				
+			}
+		    segm_disp_mx(f);
+	    }
+		if(!READ_BIT(PIND,2))
+		{
+			break;
+		}
+	 }
+  }
+	
+}
+
+}	   

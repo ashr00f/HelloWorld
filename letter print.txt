@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    while(1)
+    {
+
+
+char x;
+fflush(stdin);
+scanf("%c",&x);
+if (x>='A'&&x<='Z')
+    printf ("Capital letter\n");
+else if (x>='a'&&x<='z')
+    printf ("Small letter\n");
+    else
+ printf ("Not a  letter\n");
+
+}
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    while(1)
+    {
+
+
+char x;
+fflush(stdin);
+scanf("%c",&x);
+if (x>='A'&&x<='Z')
+    printf ("Capital letter\n");
+else if (x>='a'&&x<='z')
+{
+ x=x+('A'-'a');
+        printf ("%c\n",x);
+        }
+    else
+ printf ("Not a  letter\n");
+
+}
+
+
+return 0;
+}
+
+

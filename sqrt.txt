@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+   int i,num,flag;
+    while(1)
+    {
+      flag=0;
+       printf("enter number: ");
+       scanf("%d",&num);
+        for(i=1;(i*i<=num)&&(flag==0);i++)
+        {
+            if((i*i)==num)
+            {
+                printf("root=%d\n",i);
+                flag=1;
+            }
+        }
+        if(flag==0)
+        {
+           printf("no root\n");
+        }
+    }
+
+return 0;
+}
+
+
+
+
+
+

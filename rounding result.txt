@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    unsigned int n1,n,x ;
+    while(1)
+    {
+        printf(" Enter  no. \n");
+        scanf("%d",&n1 );
+        x=n1%5;
+if (x==0  )
+{
+ printf("num =%d",n1);
+}
+else if (x<=2)
+{      n= n1-x;
+       printf("num =%d\n",n);
+}
+else
+    {
+        n= n1+(5-x);
+printf("num =%d \n",n);
+}
+    }
+return 0;
+}
+
+

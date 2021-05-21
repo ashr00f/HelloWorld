@@ -1,0 +1,254 @@
+
+
+
+typedef enum {
+	LeftOn_RightOn,
+	LeftOn_RightOff,
+	LeftOff_RightOn,
+	LeftOff_RightOff
+	
+	}Signal_Status;
+	
+u8	f_wait=0,f_w=0;
+Signal_Status Sg=LeftOff_RightOff;
+	Signal_Status Turn_Right (void)
+	{
+		DIO_writePin(RIGHT,HIGH);
+		DIO_writePin(LEFT,LOW);
+		Sg=LeftOff_RightOn;
+		return Sg;	
+	}
+	Signal_Status Turn_Left (void)
+	{
+		DIO_writePin(LEFT,HIGH);
+		DIO_writePin(RIGHT,LOW);
+		Sg=LeftOn_RightOff;
+		return Sg;	
+	}
+		Signal_Status reset (void)
+		{
+			DIO_writePin(RIGHT,LOW);
+			DIO_writePin(LEFT,LOW);
+			Sg=LeftOff_RightOff;
+			return Sg;	
+		}
+	Signal_Status Waiting (void)
+		{
+			DIO_writePin(LEFT,HIGH);
+            DIO_writePin(RIGHT,HIGH);			
+			Sg=LeftOn_RightOn;
+			return Sg;	
+		}
+
+int main(void)
+{ 
+	u8 i;
+
+	DIO_Init();
+	LCD_Init();
+
+ while (1)
+ {
+	if(!DIO_ReadPin(TURNRIGHT))
+	{
+
+		
+		if (Sg==LeftOff_RightOff||Sg==LeftOff_RightOn)
+		{
+			Turn_Right();
+			f_wait=1;
+		}
+		else if (Sg==LeftOn_RightOff)
+		{
+		reset();
+		f_wait=0;
+		}
+			while(!DIO_ReadPin(TURNRIGHT));	
+	}
+else if(!DIO_ReadPin(TURNLEFT))
+	{
+					if (Sg==LeftOff_RightOff||Sg==LeftOn_RightOff)
+					{
+						Turn_Left();
+						f_wait=2;
+					}
+					else if (Sg==LeftOff_RightOn)
+					{
+						reset();
+						f_wait=0;
+					}
+			while(!DIO_ReadPin(TURNLEFT));	
+
+	}
+	else if(!DIO_ReadPin(WAITING))
+	{
+		
+		if(Sg==LeftOff_RightOff)
+		{
+			Waiting();
+			f_w=1;
+		}
+		
+	else if(Sg==LeftOn_RightOff)
+	{
+		Waiting();
+		f_w=2;
+		
+	}
+	else if(Sg==LeftOff_RightOn)
+	{
+		Waiting();
+		f_w=3;
+	}
+	else if (Sg==LeftOn_RightOn)
+	{
+		if(f_w==1)
+		{
+			reset();
+		}
+		else if(f_w==2)
+		{
+			Turn_Left();
+		}
+		else if(f_w==3)
+		{
+			Turn_Right();
+		}
+				
+	}
+	while(!DIO_ReadPin(WAITING));
+	}
+	
+	}
+}
+///////////////////////////////////////////////
+
+	if(!DIO_ReadPin(TURNRIGHT))
+	{
+
+		while(1)
+		{
+			if (Sg==LeftOff_RightOff||Sg==LeftOff_RightOn)
+			{
+				Turn_Right();
+				_delay_ms(200);
+				
+			}
+			else if (Sg==LeftOn_RightOff)
+			{
+				reset();			
+			}
+			if ((!DIO_ReadPin(TURNLEFT)))
+			{
+				while(!DIO_ReadPin(TURNLEFT));
+				reset();
+				break;
+				
+			}
+			if ((!DIO_ReadPin(WAITING)))
+			{
+				//while(!DIO_ReadPin(WAITING));
+				break;
+				
+			}
+			
+		}
+	
+			//while(!DIO_ReadPin(TURNRIGHT));	
+	}
+else if(!DIO_ReadPin(TURNLEFT))
+	{
+		while(1)
+		{
+					if (Sg==LeftOff_RightOff||Sg==LeftOn_RightOff)
+					{
+						Turn_Left();
+						_delay_ms(200);
+					}
+					else if (Sg==LeftOff_RightOn)
+					{
+						reset();
+						f_wait=0;
+					}
+						if ((!DIO_ReadPin(TURNRIGHT)))
+						{
+							while(!DIO_ReadPin(TURNRIGHT));
+							reset();
+							break;
+							
+						}
+						if ((!DIO_ReadPin(WAITING)))
+						{
+							//while(!DIO_ReadPin(WAITING));
+							break;
+							
+						}
+		}
+			//while(!DIO_ReadPin(TURNLEFT));	
+
+	}
+	else if(!DIO_ReadPin(WAITING))
+	{
+		
+		while(1)
+		{
+		if(Sg==LeftOff_RightOff)
+		{
+			Waiting();
+			f_w=1;
+			_delay_ms(300);
+		}
+		
+	else if(Sg==LeftOn_RightOff)
+	{
+		Waiting();
+		f_w=2;
+		_delay_ms(300);
+	}
+	else if(Sg==LeftOff_RightOn)
+	{
+		Waiting();
+		f_w=3;
+		_delay_ms(300);
+	}
+	else if(Sg==LeftOn_RightOn)
+	{
+		
+		if(f_w==1)
+		{
+			reset();
+			
+		}         
+		else if(f_w==2)
+		{
+			Turn_Left();
+		}
+		else if(f_w==3)
+		{
+			Turn_Right();
+		}
+		if(!DIO_ReadPin(TURNLEFT))
+		{
+			f_wait^=1;
+			break;
+		}
+		if(!DIO_ReadPin(TURNRIGHT))
+		{
+			f_wait^=1;
+			break;
+		}
+			
+		}
+		if(!DIO_ReadPin(WAITING))
+		{
+			while((!DIO_ReadPin(WAITING)));
+			f_wait^=1;
+			break;
+		}
+		
+				
+	
+	}
+		}
+	
+	

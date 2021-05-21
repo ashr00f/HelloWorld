@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    unsigned int n,p,x;
+    while(1)
+    {
+int x=1;
+        printf(" Enter num \n");
+        scanf("%d",&n );
+          printf(" Enter power\n");
+
+scanf("%d",&p );
+    for (int i=0;i<p;i++)
+        x=x*n;
+
+printf(" result %d\n",x);
+    }
+return 0;
+}
+
+
